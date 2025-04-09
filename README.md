@@ -28,8 +28,6 @@ The service provides two endpoints:
 - [Running Locally (Python)](#running-locally-python)  
 - [Running via Docker](#running-via-docker)  
 - [Endpoints & Testing](#endpoints--testing)  
-  - [POST /receipts/process](#post-receiptsprocess)  
-  - [GET /receiptsidpoints](#get-receiptsidpoints)  
 - [FAQ](#faq)
 
 ---
