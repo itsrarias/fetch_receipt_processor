@@ -23,14 +23,14 @@ The service provides two endpoints:
 
 ## 📁 Table of Contents
 
-- [Requirements](#✅-requirements)  
-- [Project Structure](#📦-project-structure)  
-- [Running Locally (Python)](#🚀-running-locally-python)  
-- [Running via Docker](#🐳-running-via-docker)  
-- [Endpoints & Testing](#📬-endpoints--testing)  
+- [Requirements](#requirements)  
+- [Project Structure](#project-structure)  
+- [Running Locally (Python)](#running-locally-python)  
+- [Running via Docker](#running-via-docker)  
+- [Endpoints & Testing](#endpoints--testing)  
   - [POST /receipts/process](#post-receiptsprocess)  
   - [GET /receiptsidpoints](#get-receiptsidpoints)  
-- [FAQ](#❓-faq)
+- [FAQ](#faq)
 
 ---
 
@@ -192,4 +192,3 @@ If they match, your logic is solid.
 
 ---
 
-Made with 💻 for receipt nerds.
