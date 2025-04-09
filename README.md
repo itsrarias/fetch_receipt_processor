@@ -34,7 +34,7 @@ The service provides two endpoints:
 
 ---
 
-## ✅ Requirements
+## Requirements
 
 - Python 3.9+ (for local setup)
 - `pip` for Python dependencies
@@ -42,7 +42,7 @@ The service provides two endpoints:
 
 ---
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 ├── main.py              # Entry point for the service  
@@ -57,7 +57,7 @@ The service provides two endpoints:
 
 ---
 
-## 🚀 Running Locally (Python)
+## Running Locally (Python)
 
 1. Clone or download the repository.
 
@@ -81,7 +81,7 @@ The service provides two endpoints:
 
 ---
 
-## 🐳 Running via Docker
+## Running via Docker
 
 Prefer Docker?
 
@@ -101,7 +101,7 @@ Prefer Docker?
 
 ---
 
-## 📬 Endpoints & Testing
+## Endpoints & Testing
 
 ### `POST /receipts/process`
 
@@ -164,7 +164,7 @@ curl -X GET "http://localhost:8080/receipts/d721c131-1255-4aa3-bdc1-456fe519c34f
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 **Q1: My PowerShell terminal doesn’t accept `-X` in curl?**  
 A1: PowerShell aliases `curl` to `Invoke-WebRequest`. Use:
