@@ -1,15 +1,15 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from models import Receipt, ReceiptResponse, PointsResponse
+from models import Receipt, ReceiptResponse, PointsResponse, PointsBreakdown
 from utils import calculate_points
 from pydantic import ValidationError
 import uuid
-from typing import Dict
+from typing import Dict, Tuple
 
 app = FastAPI(title="Receipt Processor")
 
-# In-memory storage - dictionary to store points
-points_store: Dict[str, int] = {}
+# In-memory storage - dictionary to store points and breakdown
+points_store: Dict[str, Tuple[int, PointsBreakdown]] = {}
 
 @app.exception_handler(ValidationError)
 async def validation_exception_handler(request: Request, exc: ValidationError):
@@ -27,31 +27,33 @@ async def process_receipt(receipt: Receipt):
         receipt_id = str(uuid.uuid4())
         print(f"Generated ID: {receipt_id}")
         
-        # Calculate points
-        points = calculate_points(receipt)
+        # Calculate points and get breakdown
+        points, breakdown = calculate_points(receipt)
         print(f"Calculated points: {points}")
         
-        # Store points
-        points_store[receipt_id] = points
+        # Store points and breakdown
+        points_store[receipt_id] = (points, breakdown)
         print(f"Stored points in memory. Current store: {points_store}")
         
         return ReceiptResponse(id=receipt_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
-@app.get("/receipts/{id}/points", response_model=PointsResponse)
-async def get_points(id: str):
+@app.get("/receipts/{id}/points")
+async def get_points(id: str, debug: bool = False):
     print(f"\nRetrieving points for receipt {id}")
     print(f"Current points store: {points_store}")
     
-    # Check if receipt exists in store
     if id not in points_store:
         print(f"Receipt {id} not found in store")
         raise HTTPException(status_code=404, detail="Receipt not found")
     
-    points = points_store[id]
+    points, breakdown = points_store[id]
     print(f"Found {points} points for receipt {id}")
-    return PointsResponse(points=points)
+    
+    response = PointsResponse(points=points, breakdown=breakdown if debug else None)
+    return JSONResponse(content=response.dict(exclude_none=True))
+
 
 if __name__ == "__main__":
     import uvicorn

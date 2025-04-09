@@ -6,16 +6,34 @@ A simple web service that awards points based on receipt data.
 
 ## 🔌 Endpoints
 
-The service provides two endpoints:
-
 ### `POST /receipts/process`
 
 - Accepts JSON for a receipt.
-- Returns a JSON object containing a unique id.
+- Returns a JSON object containing a unique `id`.
 
 ### `GET /receipts/{id}/points`
 
-- Returns the points awarded to the receipt specified by the provided id.
+- Returns the points awarded to the receipt specified by the provided `id`.
+- Supports an optional query parameter `debug=true` to return a detailed breakdown of the scoring system.
+
+  **Examples:**
+  - `GET /receipts/abc123/points` → `{ "points": 28 }`
+  - `GET /receipts/abc123/points?debug=true` →  
+    ```json
+    {
+      "points": 28,
+      "breakdown": {
+        "retailerPoints": 6,
+        "itemPairs": 10,
+        "descriptionBonus": 6,
+        "oddDay": 6,
+        "roundDollar": 0,
+        "quarterMultiple": 0,
+        "afternoonBonus": 0,
+        "total": 28
+      }
+    }
+    ```
 
 ⚠️ All data is stored **in memory** and will be lost on application restart.
 

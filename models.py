@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, validator
-from typing import List
+from typing import List, Optional
 from datetime import date, time, datetime
 import re
 
@@ -55,5 +55,22 @@ class Receipt(BaseModel):
 class ReceiptResponse(BaseModel):
     id: str
 
+class PointsBreakdown(BaseModel):
+    retailerPoints: int
+    itemPairs: int
+    descriptionBonus: int
+    oddDay: int
+    roundDollar: Optional[int] = 0
+    quarterMultiple: Optional[int] = 0
+    afternoonBonus: Optional[int] = 0
+    total: int
+
 class PointsResponse(BaseModel):
-    points: int 
+    points: int
+    breakdown: Optional[PointsBreakdown] = None
+
+    class Config:
+        json_encoders = {
+            datetime: str
+        }
+        exclude_none = True  # This will omit null fields from the JSON response
